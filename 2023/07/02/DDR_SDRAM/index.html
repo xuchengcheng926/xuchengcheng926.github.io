@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="zh-CN" theme="default"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="chengs"><title>DDR SDRAM · 乱七八糟</title><meta name="description" content="DDR SDRAM
+
+DDR SDRAM特性
+SDRAM:  synchronous dynamic random-access memor
+SRAM: Static random-access memor
+DRAM 存储采用单个电容比 SRAM采用晶体管面积更占优势（SRAM 1-4M）
+SRAM"><meta name="keywords" content="Blog,博客,Hexo"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta id="site_data_static" data-url="/"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/upload/touxiang.jpeg"><link rel="stylesheet" href="/js_complied/bundle.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"><script src="/js_complied/bundle.js"></script><script>Anatolo.comment.setConfig({"valine":{"enable":false,"appid":null,"appkey":null,"notify":false,"verify":false,"avatar":"mm","placeholder":"hello, world"},"gitment":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"gitalk":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"duoshuo":null,"disqus":null,"gentie":null})</script><meta name="generator" content="Hexo 8.1.1"></head><body> <main-outlet><div class="page-top animated"><div class="nav"><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/tags">标签</a></li></div><div class="information"><div class="nav_right_btn"><li class="btn-toggle-more"><i class="fa fa-ellipsis"></i></li><li class="btn-go-back"><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li><li class="btn-search"><a class="fa fa-search" onclick="Anatolo.search.openWindow();"></a></li><li class="btn-toggle-theme"><a class="far fa-sun" onclick="Anatolo.darkLightToggle();"></a></li></div><div class="avatar"><img src="/upload/touxiang.jpeg"></div></div></div><div class="sidebar animated"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/upload/touxiang.jpeg" style="width:220px;border-radius:50%;" alt="favicon"><h3 title=""><a href="/">乱七八糟</a></h3></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/chengsxu"><i class="fab fa-github"></i></a></li><li><a href="mailto:chengsxu@outlook.com"><i class="fa fa-envelope"></i></a></li></ul></div></div><div class="footer"><div class="p"><span> </span><i class="fa fa-star"></i><span> chengs</span></div><div class="by_farbox"><span>Powered by</span><a href="https://hexo.io/zh-cn/" target="_blank"> Hexo</a><span> &</span><a href="https://github.com/Lhcfl/hexo-theme-anatolo" target="_blank"> Anatolo</a></div><div class="beian"></div></div></div><div class="main animated fadeInDown"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated"><div class="post-title"><h3><a>DDR SDRAM</a></h3></div><div class="post-content"><p><p>DDR SDRAM</p>
+<span id="more"></span>
+<h1 id="DDR-SDRAM"><a href="#DDR-SDRAM" class="headerlink" title="DDR SDRAM"></a>DDR SDRAM</h1><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li>SDRAM:  synchronous dynamic random-access memor</li>
+<li>SRAM: Static random-access memor</li>
+<li>DRAM 存储采用单个电容比 SRAM采用晶体管面积更占优势（SRAM 1-4M）</li>
+<li>SRAM由于是芯片内部小电容掉电较快，需要cpu提供同步信号（synchronous）增加了控制器的复杂性</li>
+<li>DDR ：Double Data Rate 提高内存速度</li>
+</ul>
+<h2 id="DRAM结构"><a href="#DRAM结构" class="headerlink" title="DRAM结构"></a>DRAM结构</h2><p>组成：Array、Bank、Memory Device、Rank、DIMM(Dual in-line memory module)</p>
+<h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><p><img src="/2023/07/02/DDR_SDRAM/01.png" alt="01"></p>
+<h3 id="Bank"><a href="#Bank" class="headerlink" title="Bank"></a>Bank</h3><p><img src="/2023/07/02/DDR_SDRAM/02.png" alt="02"></p>
+<h3 id="Memory-Device、Rank、DIMM"><a href="#Memory-Device、Rank、DIMM" class="headerlink" title="Memory Device、Rank、DIMM"></a>Memory Device、Rank、DIMM</h3><p><img src="/2023/07/02/DDR_SDRAM/03.png" alt="03"></p>
+<p>多Bank目的是为了交叉充电</p>
+<h2 id="读写操作时序"><a href="#读写操作时序" class="headerlink" title="读写操作时序"></a>读写操作时序</h2><h3 id="CAS-RAS参数意义"><a href="#CAS-RAS参数意义" class="headerlink" title="CAS&#x2F;RAS参数意义"></a>CAS&#x2F;RAS参数意义</h3><p><img src="/2023/07/02/DDR_SDRAM/04.png" alt="04"></p>
+<ul>
+<li>RAS: row address strobe</li>
+<li>CAS: column address strobe</li>
+<li>DQ：Data Bus数据线</li>
+<li>DM：Data Mask 当写入操作时，在DM信号有效时写入DQ数据。</li>
+</ul>
+<h3 id="DRAM操作时许演变对比"><a href="#DRAM操作时许演变对比" class="headerlink" title="DRAM操作时许演变对比"></a>DRAM操作时许演变对比</h3><p><img src="/2023/07/02/DDR_SDRAM/05.png" alt="05"></p>
+<p>FPAM：FAST Page Module 根据局部性原理，行地址不需要经常根本更换，速度翻倍</p>
+<p>EDO：Extend Data Out 列地址和数据时间复用，速度翻倍</p>
+<p>BEDO：Burst EDO 爆发时EDO模式，芯片内部添加累加器自动计算新地址，不需要每次都给列地址，节约了列地址解码时间，速度增长30%</p>
+<p><img src="/2023/07/02/DDR_SDRAM/06.png" alt="06"></p>
+<p>DLL：Delay Lock Loop 用于DDR外部引脚信号和内部信号不同步进行同步操作</p>
+<p><img src="/2023/07/02/DDR_SDRAM/09.png" alt="09"></p>
+<h4 id="DDR-Read"><a href="#DDR-Read" class="headerlink" title="DDR Read"></a>DDR Read</h4><p>20世纪80年代，计算机发展迅速，出现内存和cpu速度不匹配情况，异步此时限制了内存速度的进一步提高，内存又重新回到了同步的通信方式,时钟信号的出现对速率并没有明显提升，但可以通过修改时钟频率提升了内存的适用性。</p>
+<p><img src="/2023/07/02/DDR_SDRAM/07.png" alt="07"></p>
+<p>SDR：采用单个时钟信号传输数据</p>
+<p>DDR：采用上升沿和下降沿传输数据，速度翻倍Dual&#x2F;Duble</p>
+<p>CAS-2: CAS到RAS延迟两个周期</p>
+<p>DQS：toggle 读数据的时候进行反转，作用不大，和数据线同步</p>
+<h4 id="DDR-Write"><a href="#DDR-Write" class="headerlink" title="DDR Write"></a>DDR Write</h4><p><img src="/2023/07/02/DDR_SDRAM/08.png" alt="08"></p>
+<p>DQS：在DDR中通知芯片可以进行数据锁存，进行数据写操作，比数据线晚半个周期</p>
+<p>DQS对应着DATA数据线，所以在芯片电路设计中，并不能复用</p>
+<p>DQS 采用差分信号避免并行数据线中的干扰</p>
+<p>CKE:时钟使能 nWE：读写操作标记 ODT：决定是否启动内部上下拉电阻降低频率高导致集电容效应影响信号质量</p>
+<h2 id="内存时序关键参数"><a href="#内存时序关键参数" class="headerlink" title="内存时序关键参数"></a>内存时序关键参数</h2><p><img src="/2023/07/02/DDR_SDRAM/10.png" alt="10"></p>
+<h3 id="Read四个阶段"><a href="#Read四个阶段" class="headerlink" title="Read四个阶段"></a>Read四个阶段</h3><p>Precharge Access Sense Restore</p>
+<p>Trcd: Row to Col Delay</p>
+<p>Tras: Row access Stroke </p>
+<p>Trp: Row Precharge</p>
+<p><img src="/2023/07/02/DDR_SDRAM/11.png" alt="11"></p>
+<h3 id="Write四个阶段"><a href="#Write四个阶段" class="headerlink" title="Write四个阶段"></a>Write四个阶段</h3><p>Access Sense Restore Precharge</p>
+<p>Trcd：Row Column Delay</p>
+<p>Twr：Write Delay</p>
+<p>Trp: Row Precharge</p>
+<p><img src="/2023/07/02/DDR_SDRAM/12.png" alt="12"></p>
+<h3 id="SDR和DDR对比"><a href="#SDR和DDR对比" class="headerlink" title="SDR和DDR对比"></a>SDR和DDR对比</h3><p>DDR不断迭代过程频率不断提高，但其中控制逻辑的速度并没有提高（Trcd Tras没有显著改变），只是提高BANK读取的位数，拓展了带宽</p>
+<p><img src="/2023/07/02/DDR_SDRAM/13.png" alt="13"></p>
+<h3 id="读写操作时间参数"><a href="#读写操作时间参数" class="headerlink" title="读写操作时间参数"></a>读写操作时间参数</h3><p>read</p>
+<p><img src="/2023/07/02/DDR_SDRAM/14.png" alt="14"></p>
+<p>write</p>
+<p><img src="/2023/07/02/DDR_SDRAM/16.png" alt="16"></p>
+<p>refresh</p>
+<p>此处的Trc和读写的Trc不同，refresh会同时刷新多个行</p>
+<p><img src="/2023/07/02/DDR_SDRAM/17.png" alt="17"></p>
+<p>Trrd Tfaw</p>
+<p><img src="/2023/07/02/DDR_SDRAM/18.png" alt="18"></p>
+<p>参数列表：</p>
+<p>Trefi &#x3D; bank最低刷时间&#x2F;刷新bank行次数</p>
+<p><img src="/2023/07/02/DDR_SDRAM/15.png" alt="15"></p>
+</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2023-07-02</span><i class="fa fa-tag"></i><a class="tag" href="/tags/linux/" title="linux">linux </a><span>大约793个字, 2分钟38秒读完</span></div></div></div></div><div class="share"><div class="share-btn linkonly"><a class="fa fa-link" onclick="Utils.copyToClipboard(window.location.href)" ref="sidebar"></a></div><div class="share-btn evernote"><a class="fa fa-share" onclick="Anatolo.share.native()" ref="sidebar"></a></div><div class="share-btn weibo"><a class="fab fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="share-btn twitter"><a class="fab fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F%20%C2%B7%20DDR%20SDRAM%0Ahttp://chengs.run/2023/07/02/DDR_SDRAM/%0A"></a></div><div class="share-btn mastodon"><a class="fab fa-mastodon" target="_blank" rel="noopener" href="https://mastodonshare.com/?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F%20%C2%B7%20DDR%20SDRAM%0Ahttp://chengs.run/2023/07/02/DDR_SDRAM/%0A"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2024/11/24/css%E6%A0%B7%E5%BC%8F%E7%AC%94%E8%AE%B0/" title="css样式笔记">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2023/02/27/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91(4)/" title="linux驱动开发(4)">下一篇</a></li></ul></div><script>Anatolo.comment.setConfig({"valine":{"enable":false,"appid":null,"appkey":null,"notify":false,"verify":false,"avatar":"mm","placeholder":"hello, world"},"gitment":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"gitalk":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"duoshuo":null,"disqus":null,"gentie":null})</script></div></div></div></div></main-outlet><script>(async function(){ if (Anatolo.search == null) await Anatolo.getMsg("search-init"); Anatolo.search.config = {translation:{posts:"文章",pages:"页面",categories:"分类",tags:"标签",untitled:"(无标题)",} }; })()</script><div class="searchbox ins-search modal-cover"><div class="searchbox-container ins-search-container modal-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="想要查找什么..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="Anatolo.search.closeWindow();"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><button class="float-button hide" id="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" type="button" title="回到顶部"><i class="fa fa-angle-up"></i></button><div class="modal-cover" id="success-indicator"><div class="modal-container indicator"><i class="fa fa-check"></i></div></div></body></html>

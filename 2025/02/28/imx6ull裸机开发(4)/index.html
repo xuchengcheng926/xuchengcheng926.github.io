@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="zh-CN" theme="default"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="chengs"><title>imx6ull裸机开发(4) · 乱七八糟</title><meta name="description" content="MMDC、RTC、I2C、SPI
+
+
+Multi-Mode DDR Controller (MMDC)时钟
+imx6ull时钟设置DDR为PFD2 400MHz（实际为396MHz）
+
+
+
+CBCMR[PRE_PERIPH2_CLK_SEL]
+
+
+
+CBCDR[PERIPH2_CLK_SEL]
+
+
+"><meta name="keywords" content="Blog,博客,Hexo"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta id="site_data_static" data-url="/"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/upload/touxiang.jpeg"><link rel="stylesheet" href="/js_complied/bundle.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"><script src="/js_complied/bundle.js"></script><script>Anatolo.comment.setConfig({"valine":{"enable":false,"appid":null,"appkey":null,"notify":false,"verify":false,"avatar":"mm","placeholder":"hello, world"},"gitment":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"gitalk":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"duoshuo":null,"disqus":null,"gentie":null})</script><meta name="generator" content="Hexo 8.1.1"></head><body> <main-outlet><div class="page-top animated"><div class="nav"><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/tags">标签</a></li></div><div class="information"><div class="nav_right_btn"><li class="btn-toggle-more"><i class="fa fa-ellipsis"></i></li><li class="btn-go-back"><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li><li class="btn-search"><a class="fa fa-search" onclick="Anatolo.search.openWindow();"></a></li><li class="btn-toggle-theme"><a class="far fa-sun" onclick="Anatolo.darkLightToggle();"></a></li></div><div class="avatar"><img src="/upload/touxiang.jpeg"></div></div></div><div class="sidebar animated"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/upload/touxiang.jpeg" style="width:220px;border-radius:50%;" alt="favicon"><h3 title=""><a href="/">乱七八糟</a></h3></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/chengsxu"><i class="fab fa-github"></i></a></li><li><a href="mailto:chengsxu@outlook.com"><i class="fa fa-envelope"></i></a></li></ul></div></div><div class="footer"><div class="p"><span> </span><i class="fa fa-star"></i><span> chengs</span></div><div class="by_farbox"><span>Powered by</span><a href="https://hexo.io/zh-cn/" target="_blank"> Hexo</a><span> &</span><a href="https://github.com/Lhcfl/hexo-theme-anatolo" target="_blank"> Anatolo</a></div><div class="beian"></div></div></div><div class="main animated fadeInDown"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated"><div class="post-title"><h3><a>imx6ull裸机开发(4)</a></h3></div><div class="post-content"><p><p>MMDC、RTC、I2C、SPI</p>
+<span id="more"></span>
+
+<h1 id="Multi-Mode-DDR-Controller-MMDC"><a href="#Multi-Mode-DDR-Controller-MMDC" class="headerlink" title="Multi-Mode DDR Controller (MMDC)"></a>Multi-Mode DDR Controller (MMDC)</h1><h2 id="时钟"><a href="#时钟" class="headerlink" title="时钟"></a>时钟</h2><ul>
+<li>imx6ull时钟设置DDR为PFD2 400MHz（实际为396MHz）</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250228225826030.png" alt="image-20250228225826030"></p>
+<ul>
+<li>CBCMR[PRE_PERIPH2_CLK_SEL]</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250228230621874.png" alt="image-20250228230621874"></p>
+<ul>
+<li>CBCDR[PERIPH2_CLK_SEL]</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250228230800554.png" alt="image-20250228230800554"></p>
+<ul>
+<li>CBCDR[FABRIC_MMDC_PODF]</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250228231143317.png" alt="image-20250228231143317"></p>
+<h2 id="DDR3L"><a href="#DDR3L" class="headerlink" title="DDR3L"></a>DDR3L</h2><ul>
+<li><p>型号NT5CC256M16EP-EK</p>
+</li>
+<li><p>512MB</p>
+</li>
+<li><p>NXP DDR测试程序ddr_stress_tester</p>
+</li>
+</ul>
+<h1 id="LCD"><a href="#LCD" class="headerlink" title="LCD"></a>LCD</h1><p>…</p>
+<h1 id="RTC"><a href="#RTC" class="headerlink" title="RTC"></a>RTC</h1><p>Secure Non-Volatile Storage(SNVS)</p>
+<h2 id="SNVS-HPCOMR-NPSWA-EN"><a href="#SNVS-HPCOMR-NPSWA-EN" class="headerlink" title="SNVS_HPCOMR[NPSWA_EN]"></a>SNVS_HPCOMR[NPSWA_EN]</h2><p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301133928537.png" alt="image-20250301133928537"></p>
+<h2 id="SNVS-LPCR-SRTC-ENV"><a href="#SNVS-LPCR-SRTC-ENV" class="headerlink" title="SNVS_LPCR[SRTC_ENV]"></a>SNVS_LPCR[SRTC_ENV]</h2><p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301134508865.png" alt="image-20250301134508865"></p>
+<h2 id="获取计数值"><a href="#获取计数值" class="headerlink" title="获取计数值"></a>获取计数值</h2><p>SNVS_SRTCMR 和 SNVS_SRTCLR</p>
+<ul>
+<li><p>SRTC 计数器是 32 位的，不是 47 位！</p>
+</li>
+<li><p>SNVS_SRTCMR 的 bit14:0 这 15 位是 SRTC 计数器的高 15 位。</p>
+</li>
+<li><p>SNVS_SRTCLR 的 bit31:bit15 这 17 位是 SRTC 计数器的低 17 位。</p>
+</li>
+</ul>
+<h1 id="I2C"><a href="#I2C" class="headerlink" title="I2C"></a>I2C</h1><h2 id="I2C协议介绍"><a href="#I2C协议介绍" class="headerlink" title="I2C协议介绍"></a>I2C协议介绍</h2><ul>
+<li>起始位：SCL高电平的时候，SDA下降沿</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301144810634.png" alt="image-20250301144810634"></p>
+<ul>
+<li>停止位：SCL高电平的时候，SDA上升沿</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301144958490.png" alt="image-20250301144958490"></p>
+<ul>
+<li>数据传输：SCL低电平时SDA必须稳定</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301145051331.png" alt="image-20250301145051331"></p>
+<ul>
+<li><p>应答信号：主机提供时钟，将SDA拉低表示ACK，将SDA拉高表示NOACK</p>
+</li>
+<li><p>I2C 写时序</p>
+</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301172209134.png" alt="image-20250301172209134"></p>
+<ul>
+<li>I2C 读时序</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301172223762.png" alt="image-20250301172223762"></p>
+<h2 id="imx6ull-I2C-Controler"><a href="#imx6ull-I2C-Controler" class="headerlink" title="imx6ull I2C Controler"></a>imx6ull I2C Controler</h2><h3 id="引脚复用"><a href="#引脚复用" class="headerlink" title="引脚复用"></a>引脚复用</h3><p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301150553968.png" alt="image-20250301150553968"></p>
+<h3 id="时钟-1"><a href="#时钟-1" class="headerlink" title="时钟"></a>时钟</h3><p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301150718964.png" alt="image-20250301150718964"></p>
+<h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><ul>
+<li>I2Cx_IFDR<br>IPG_CLK_ROOT时钟66MHz，如果实现100KHz的标准I2C速率，则分频系数位66Mhz &#x2F; 100KHz &#x3D; 660，查表可知，配置IC值为0x38或者0x15</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301152103670.png" alt="image-20250301152103670"></p>
+<ul>
+<li>I2Cx_I2CR</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301152313271.png" alt="image-20250301152313271"></p>
+<table>
+<thead>
+<tr>
+<th>位名称</th>
+<th>功能</th>
+<th>配置值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IEN[7]</td>
+<td>I2C enable</td>
+<td>1</td>
+</tr>
+<tr>
+<td>IIEN[6]</td>
+<td>I2C interrupt enable</td>
+<td>0</td>
+</tr>
+<tr>
+<td>MSTA</td>
+<td>Master&#x2F;Slave mode select bit.</td>
+<td>1</td>
+</tr>
+<tr>
+<td>MTX</td>
+<td>Transmit(1)&#x2F;Receive(0) mode select bit.</td>
+<td>-</td>
+</tr>
+<tr>
+<td>TXAK</td>
+<td>Transmit acknowledge enable</td>
+<td>-</td>
+</tr>
+<tr>
+<td>RSTA</td>
+<td>Generates a Repeated Start condition 1有效</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<ul>
+<li>I2Cx_I2SR</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301153035812.png" alt="image-20250301153035812"></p>
+<table>
+<thead>
+<tr>
+<th>位名称</th>
+<th>功能</th>
+<th>配置值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ICF</td>
+<td>Data transferring bit.  1：complete 0： progress</td>
+<td>-</td>
+</tr>
+<tr>
+<td>IBB</td>
+<td>I2C bus busy bit. 1:Busy 0:idle</td>
+<td>-</td>
+</tr>
+<tr>
+<td>IAL</td>
+<td>Arbitration lost. 0：No arbitration lost 1：Arbitration is lost</td>
+<td></td>
+</tr>
+<tr>
+<td>RXAK</td>
+<td>Received acknowledge. 0:Ack 1:noAck</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<ul>
+<li>I2Cx_I2DR</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250301153529292.png" alt="image-20250301153529292"></p>
+<h1 id="SPI"><a href="#SPI" class="headerlink" title="SPI"></a>SPI</h1><h2 id="SPI协议介绍"><a href="#SPI协议介绍" class="headerlink" title="SPI协议介绍"></a>SPI协议介绍</h2><ul>
+<li><p>全双工，速度快（几十至上百兆）</p>
+</li>
+<li><p>一般情况下分为4条线，CS、SCLK、MOSI、MISO，CS拉低有效</p>
+</li>
+<li><p>工作模式：根据串行时钟极性(CPOL)和相位(CPHA)来配置</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CPOL&#x3D;0</th>
+<th>CPOL&#x3D;1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPHA&#x3D;0</td>
+<td>时钟空闲状态为低、第一个跳变沿采集数据</td>
+<td>时钟空闲状态为高、第一个跳变沿采集数据</td>
+</tr>
+<tr>
+<td>CPHA&#x3D;1</td>
+<td>时钟空闲状态为低、第二个跳变沿采集数据</td>
+<td>时钟空闲状态为高、第二个跳变沿采集数据</td>
+</tr>
+</tbody></table>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302115338017.png" alt="image-20250302115338017"></p>
+<ul>
+<li>时序：以CPOL&#x3D;0，CPHA&#x3D;1工作模式为例，见下图</li>
+</ul>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302115655548.png" alt="image-20250302115655548"></p>
+<h2 id="Enhanced-Configurable-SPI-ECSPI"><a href="#Enhanced-Configurable-SPI-ECSPI" class="headerlink" title="Enhanced Configurable SPI (ECSPI)"></a>Enhanced Configurable SPI (ECSPI)</h2><h2 id="时钟-2"><a href="#时钟-2" class="headerlink" title="时钟"></a>时钟</h2><p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302134411147.png" alt="image-20250302134411147"></p>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302134833548.png" alt="image-20250302134833548"></p>
+<p>pll3_sw_clk&#x3D;480MHz </p>
+<p>480 &#x2F; 8 &#x3D; 60Mhz</p>
+<h3 id="CCM-CSCDR2-ECSPI-CLK-SEL-配置为0"><a href="#CCM-CSCDR2-ECSPI-CLK-SEL-配置为0" class="headerlink" title="CCM_CSCDR2[ECSPI_CLK_SEL] 配置为0"></a>CCM_CSCDR2[ECSPI_CLK_SEL] 配置为0</h3><p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302135020795.png" alt="image-20250302135020795"></p>
+<h3 id="ECSPI-CLK-PODF-ECSPI-CLK-SEL-配置为0-，1分频"><a href="#ECSPI-CLK-PODF-ECSPI-CLK-SEL-配置为0-，1分频" class="headerlink" title="ECSPI_CLK_PODF[ECSPI_CLK_SEL] 配置为0 ，1分频"></a>ECSPI_CLK_PODF[ECSPI_CLK_SEL] 配置为0 ，1分频</h3><p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302135311246.png" alt="image-20250302135311246"></p>
+<h3 id="寄存器-1"><a href="#寄存器-1" class="headerlink" title="寄存器"></a>寄存器</h3><h3 id="ECSPIx-RXDATA"><a href="#ECSPIx-RXDATA" class="headerlink" title="ECSPIx_RXDATA"></a>ECSPIx_RXDATA</h3><p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302130932530.png" alt="image-20250302130932530"></p>
+<h3 id="ECSPIx-TXDATA"><a href="#ECSPIx-TXDATA" class="headerlink" title="ECSPIx_TXDATA"></a>ECSPIx_TXDATA</h3><p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302131019255.png" alt="image-20250302131019255"></p>
+<h3 id="ECSPIx-CONREG"><a href="#ECSPIx-CONREG" class="headerlink" title="ECSPIx_CONREG"></a>ECSPIx_CONREG</h3><table>
+<thead>
+<tr>
+<th>位名称</th>
+<th>功能</th>
+<th>配置值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EN[0]</td>
+<td>SPI Block Enable Control</td>
+<td>1</td>
+</tr>
+<tr>
+<td>HT[1]</td>
+<td>Hardware Trigger Enable.</td>
+<td>0</td>
+</tr>
+<tr>
+<td>XCH[2]</td>
+<td>SPI Exchange Bit.</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SMC[3]</td>
+<td>Immediately starts a SPI burst when data is written in TXFIFO</td>
+<td>1</td>
+</tr>
+<tr>
+<td>CHANNEL_MODE[4:7]</td>
+<td>SPI CHANNEL MODE selects the mode for each SPI channel.</td>
+<td>1</td>
+</tr>
+<tr>
+<td>POST_DIVIDER[8:11]</td>
+<td>SPI Post Divider.</td>
+<td>-</td>
+</tr>
+<tr>
+<td>PRE_DIVIDER[12:15]</td>
+<td>SPI Pre Divider.</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CHANNEL_SELECT[18:19]</td>
+<td>SPI CHANNEL SELECT bits</td>
+<td>b00</td>
+</tr>
+<tr>
+<td>BURST_LENGTH[20:31]</td>
+<td>Burst Length.(设置8bit 一个字节)</td>
+<td>7</td>
+</tr>
+</tbody></table>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302131055092.png" alt="image-20250302131055092"></p>
+<h3 id="ECSPIx-CONFIGREG"><a href="#ECSPIx-CONFIGREG" class="headerlink" title="ECSPIx_CONFIGREG"></a>ECSPIx_CONFIGREG</h3><table>
+<thead>
+<tr>
+<th>位名称</th>
+<th>功能</th>
+<th>配置值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SCLK_PHA[0:3]</td>
+<td>SPI Clock&#x2F;Data Phase Control.</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SCLK_PO[4:7]</td>
+<td>SPI Clock Polarity Control.</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SS_CTL[8:11]</td>
+<td>SPI SS Wave Form Select.</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SS_POL[12:15]</td>
+<td>SPI SS Polarity Select.</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DATA_CTL[16:19]</td>
+<td>Controls inactive state of the data line for each SPI channel.</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SCLK_CTL[20:23]</td>
+<td>Controls the inactive state of SCLK for each SPI channel.</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302132046581.png" alt="image-20250302132046581"></p>
+<h3 id="ECSPIx-STATREG"><a href="#ECSPIx-STATREG" class="headerlink" title="ECSPIx_STATREG"></a>ECSPIx_STATREG</h3><table>
+<thead>
+<tr>
+<th>位名称</th>
+<th>功能</th>
+<th>配置值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TE[0]</td>
+<td>TXFIFO Empty.</td>
+<td>-</td>
+</tr>
+<tr>
+<td>RR[3]</td>
+<td>RXFIFO Ready.</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302133030343.png" alt="image-20250302133030343"></p>
+<h3 id="ECSPIx-PERIODREG"><a href="#ECSPIx-PERIODREG" class="headerlink" title="ECSPIx_PERIODREG"></a>ECSPIx_PERIODREG</h3><table>
+<thead>
+<tr>
+<th>位名称</th>
+<th>功能</th>
+<th>配置值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SAMPLE_PERIOD[0:14]</td>
+<td>Sample Period Control.Control the number of wait states</td>
+<td>0x2000</td>
+</tr>
+<tr>
+<td>CSRC[15]</td>
+<td>Clock Source Control.</td>
+<td>0</td>
+</tr>
+<tr>
+<td>CSD_CTL[16:21]</td>
+<td>片选延迟</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p><img src="/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/image-20250302133753353.png" alt="image-20250302133753353"></p>
+<h1 id="各个协议中MSB、LSB传输顺序"><a href="#各个协议中MSB、LSB传输顺序" class="headerlink" title="各个协议中MSB、LSB传输顺序"></a>各个协议中MSB、LSB传输顺序</h1><table>
+<thead>
+<tr>
+<th>总线类型</th>
+<th>默认数据传输顺序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>UART</strong></td>
+<td><strong>LSB 优先</strong>（低位先传）</td>
+</tr>
+<tr>
+<td><strong>SPI</strong></td>
+<td><strong>可配置（常见 MSB 优先）</strong></td>
+</tr>
+<tr>
+<td><strong>I²C</strong></td>
+<td><strong>MSB 优先</strong>（高位先传）</td>
+</tr>
+</tbody></table>
+</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2025-02-28</span><i class="fa fa-tag"></i><a class="tag" href="/tags/imx6ull/" title="imx6ull">imx6ull </a><span>大约841个字, 2分钟48秒读完</span></div></div></div></div><div class="share"><div class="share-btn linkonly"><a class="fa fa-link" onclick="Utils.copyToClipboard(window.location.href)" ref="sidebar"></a></div><div class="share-btn evernote"><a class="fa fa-share" onclick="Anatolo.share.native()" ref="sidebar"></a></div><div class="share-btn weibo"><a class="fab fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="share-btn twitter"><a class="fab fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F%20%C2%B7%20imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)%0Ahttp://chengs.run/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/%0A"></a></div><div class="share-btn mastodon"><a class="fab fa-mastodon" target="_blank" rel="noopener" href="https://mastodonshare.com/?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F%20%C2%B7%20imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)%0Ahttp://chengs.run/2025/02/28/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(4)/%0A"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2025/03/09/%E5%86%85%E5%AD%98%E6%B1%A0/" title="内存池">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2025/02/23/imx6ull%E8%A3%B8%E6%9C%BA%E5%BC%80%E5%8F%91(3)/" title="imx6ull裸机开发(3)">下一篇</a></li></ul></div><script>Anatolo.comment.setConfig({"valine":{"enable":false,"appid":null,"appkey":null,"notify":false,"verify":false,"avatar":"mm","placeholder":"hello, world"},"gitment":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"gitalk":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"duoshuo":null,"disqus":null,"gentie":null})</script></div></div></div></div></main-outlet><script>(async function(){ if (Anatolo.search == null) await Anatolo.getMsg("search-init"); Anatolo.search.config = {translation:{posts:"文章",pages:"页面",categories:"分类",tags:"标签",untitled:"(无标题)",} }; })()</script><div class="searchbox ins-search modal-cover"><div class="searchbox-container ins-search-container modal-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="想要查找什么..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="Anatolo.search.closeWindow();"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><button class="float-button hide" id="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" type="button" title="回到顶部"><i class="fa fa-angle-up"></i></button><div class="modal-cover" id="success-indicator"><div class="modal-container indicator"><i class="fa fa-check"></i></div></div></body></html>

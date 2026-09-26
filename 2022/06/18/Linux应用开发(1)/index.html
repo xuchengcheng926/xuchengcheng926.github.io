@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="zh-CN" theme="default"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="chengs"><title>linux应用开发(1) · 乱七八糟</title><meta name="description" content="Linux应用开发基础
+
+
+由源文件到可执行文件分为四部分
+预编译 gcc -E main.c -O main.i
+编译 gcc -S main.i -O main.s
+汇编 gcc -C main.s -O main.o
+链接 gcc main.o -O main
+
+
+Makefile
+GDB调试"><meta name="keywords" content="Blog,博客,Hexo"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta id="site_data_static" data-url="/"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/upload/touxiang.jpeg"><link rel="stylesheet" href="/js_complied/bundle.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"><script src="/js_complied/bundle.js"></script><script>Anatolo.comment.setConfig({"valine":{"enable":false,"appid":null,"appkey":null,"notify":false,"verify":false,"avatar":"mm","placeholder":"hello, world"},"gitment":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"gitalk":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"duoshuo":null,"disqus":null,"gentie":null})</script><meta name="generator" content="Hexo 8.1.1"></head><body> <main-outlet><div class="page-top animated"><div class="nav"><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/tags">标签</a></li></div><div class="information"><div class="nav_right_btn"><li class="btn-toggle-more"><i class="fa fa-ellipsis"></i></li><li class="btn-go-back"><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li><li class="btn-search"><a class="fa fa-search" onclick="Anatolo.search.openWindow();"></a></li><li class="btn-toggle-theme"><a class="far fa-sun" onclick="Anatolo.darkLightToggle();"></a></li></div><div class="avatar"><img src="/upload/touxiang.jpeg"></div></div></div><div class="sidebar animated"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/upload/touxiang.jpeg" style="width:220px;border-radius:50%;" alt="favicon"><h3 title=""><a href="/">乱七八糟</a></h3></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/chengsxu"><i class="fab fa-github"></i></a></li><li><a href="mailto:chengsxu@outlook.com"><i class="fa fa-envelope"></i></a></li></ul></div></div><div class="footer"><div class="p"><span> </span><i class="fa fa-star"></i><span> chengs</span></div><div class="by_farbox"><span>Powered by</span><a href="https://hexo.io/zh-cn/" target="_blank"> Hexo</a><span> &</span><a href="https://github.com/Lhcfl/hexo-theme-anatolo" target="_blank"> Anatolo</a></div><div class="beian"></div></div></div><div class="main animated fadeInDown"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated"><div class="post-title"><h3><a>linux应用开发(1)</a></h3></div><div class="post-content"><p><p>Linux应用开发基础</p>
+<span id="more"></span>
+<ol>
+<li>由源文件到可执行文件分为四部分<ul>
+<li>预编译 gcc -E main.c -O main.i</li>
+<li>编译 gcc -S main.i -O main.s</li>
+<li>汇编 gcc -C main.s -O main.o</li>
+<li>链接 gcc main.o -O main</li>
+</ul>
+</li>
+<li>Makefile</li>
+<li>GDB调试程序<ul>
+<li>debug和release版本的区别</li>
+<li>gcc -g 编译debug版本</li>
+<li>通常使用gdb调试程序<ul>
+<li>l 显示代码</li>
+<li>b 行号&#x2F;函数名 加断点</li>
+<li>info break 查看断点信息</li>
+<li>r 运行程序</li>
+<li>n 单布执行</li>
+<li>p 打印内容</li>
+<li>c 继续运行</li>
+<li>s 进入函数</li>
+<li>finish 退出函数</li>
+<li>q 退出程序</li>
+<li>bt 函数调用栈的关系</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>静态库和共享库<ul>
+<li>libxxx.a(静态库)、libxxx.so(共享库)</li>
+<li>库文件默认在&#x2F;lib、&#x2F;usr&#x2F;lib,头文件默认放在&#x2F;usr&#x2F;include下</li>
+<li>静态库：<ul>
+<li>ar crv libxx.a a.o b.o</li>
+<li>gcc -o main main.c -L路径 -l库名</li>
+</ul>
+</li>
+<li>共享库<ul>
+<li>gcc -shared -fPIC -o libfoo.so add.o max.o</li>
+<li>gcc -o main main.c -L路径 -l库名(在使用该命令时，默认优先使用共享库)</li>
+<li>在运行共享库时默认再标准目录下找共享库，使用ldd命令查看库调用情况</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>主函数入口参数<ul>
+<li>argc：参数数量</li>
+<li>grgv：参数内容<ul>
+<li>数组指针：int (*p)[] &#x3D; NULL</li>
+<li>指针数组：int *p[n] &#x3D; {NULL}</li>
+</ul>
+</li>
+<li>envp：环境变量,环境变量继承自父进程，在命令行中执行程序时，父进程就是bash命令行，可以使用export添加环境变量</li>
+</ul>
+</li>
+<li>输出缓冲区<ul>
+<li>在执行printf时，会将数据发送到数据缓冲区，数据缓冲区在积攒一定数据后，会将数据打印到窗口</li>
+<li>使用\n换行符会将数据立刻打印输出</li>
+<li>使用fflush(stdout)刷新缓冲区</li>
+<li>如果不刷新缓冲区，数据不会被打印，默认在exit函数中进行刷新，若使用_exit(1)可以观察到，无数据输出</li>
+</ul>
+</li>
+<li>fork复制进程<ul>
+<li>父进程的fork()结果不为0，子进程为0</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[], <span class="type">char</span> *envp[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> *s = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">pid_t</span> id = fork();</span><br><span class="line">    assert( id != <span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">if</span>(id == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        s = <span class="string">&quot;child&quot;</span>;</span><br><span class="line">        n = <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        s = <span class="string">&quot;parent&quot;</span>;</span><br><span class="line">        n = <span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;s=%s,pid=%d,ppid=%d\n&quot;</span>, s, getpid(), getppid());</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li>fork写时拷贝技术<ul>
+<li>物理内存、逻辑内存：程序内存在物理内存中空间是不连续的，在逻辑内存中不是连续的，一般采用页表进行映射，一般情况一页的大小为4K</li>
+<li>页表：逻辑内存到物理内存的映射关系</li>
+<li>由于两者采用页表进行映射，所以可以使不同进程的逻辑页映射到相同的物理页<ul>
+<li>在进行进程复制时，若对物理页完全复制，则在物理内存中会出现较多重复内容（有的页数据只读，并不修改），会浪费机器性能，所以采用写时拷贝技术</li>
+<li>某页数据需要进行修改，则将该页复制到其他页上，修改逻辑页表，改变映射关系</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>逻辑地址与物理地址<ul>
+<li>程序中看到的地址一般为逻辑地址</li>
+<li>在32位中最大内存4G<ul>
+<li>高位1G: 内核使用</li>
+<li>低位3G: 用户使用</li>
+</ul>
+</li>
+<li>相同逻辑地址可能不是相同物理地址</li>
+</ul>
+</li>
+<li>僵死进程(defunct)<ul>
+<li>当子进程先于父进程结束，父进程没有获取子进程的退出码，此时子进程变成僵死进程</li>
+<li>在lunix中子进程退出后，程序实体会被去除，但PCB会被保留，父进程从子进程的PCB中可以获取子进程的退出码</li>
+<li>避免产生僵死进程<ul>
+<li>父进程调用wait()方法获取子进程的退出码，此时会阻塞</li>
+<li>父进程先结束：在lunix中父进程结束后子进程如果没结束被称为孤儿进程，会被分配一个父进程（init进程），init进程会收养其他孤儿进程，在子进程结束后获取子进程退出码</li>
+<li>退出码左移8位后的数据是wait返回数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[], <span class="type">char</span> *envp[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> *s = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">pid_t</span> id = fork();</span><br><span class="line">    assert( id != <span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">if</span>(id == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        s = <span class="string">&quot;child&quot;</span>;</span><br><span class="line">        n = <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        s = <span class="string">&quot;parent&quot;</span>;</span><br><span class="line">        n = <span class="number">5</span>;</span><br><span class="line">        <span class="type">int</span> val = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;waid pid:%d\n&quot;</span>, wait(&amp;val));</span><br><span class="line">        <span class="keyword">if</span>(WIFEXITED(val))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;exitId is:%d\n&quot;</span>, WEXITSTATUS(val)); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;s=%s,pid=%d,ppid=%d\n&quot;</span>, s, getpid(), getppid());</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2022-06-18</span><i class="fa fa-tag"></i><a class="tag" href="/tags/linux/" title="linux">linux </a><i class="fa fa-tag"></i><a class="tag" href="/tags/linux应用开发/" title="linux应用开发">linux应用开发 </a><span>大约1200个字, 4分钟0秒读完</span></div></div></div></div><div class="share"><div class="share-btn linkonly"><a class="fa fa-link" onclick="Utils.copyToClipboard(window.location.href)" ref="sidebar"></a></div><div class="share-btn evernote"><a class="fa fa-share" onclick="Anatolo.share.native()" ref="sidebar"></a></div><div class="share-btn weibo"><a class="fab fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="share-btn twitter"><a class="fab fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F%20%C2%B7%20linux%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91(1)%0Ahttp://chengs.run/2022/06/18/Linux%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91(1)/%0A"></a></div><div class="share-btn mastodon"><a class="fab fa-mastodon" target="_blank" rel="noopener" href="https://mastodonshare.com/?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F%20%C2%B7%20linux%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91(1)%0Ahttp://chengs.run/2022/06/18/Linux%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91(1)/%0A"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2022/06/19/LINUX%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91(2)/" title="linux应用开发(2)">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2022/06/17/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" title="Linux基础命令">下一篇</a></li></ul></div><script>Anatolo.comment.setConfig({"valine":{"enable":false,"appid":null,"appkey":null,"notify":false,"verify":false,"avatar":"mm","placeholder":"hello, world"},"gitment":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"gitalk":{"enable":false,"owner":"Your GitHub ID","repo":"Repo to store comments","client_id":"Your client ID","client_secret":"Your client secret"},"duoshuo":null,"disqus":null,"gentie":null})</script></div></div></div></div></main-outlet><script>(async function(){ if (Anatolo.search == null) await Anatolo.getMsg("search-init"); Anatolo.search.config = {translation:{posts:"文章",pages:"页面",categories:"分类",tags:"标签",untitled:"(无标题)",} }; })()</script><div class="searchbox ins-search modal-cover"><div class="searchbox-container ins-search-container modal-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="想要查找什么..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="Anatolo.search.closeWindow();"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><button class="float-button hide" id="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" type="button" title="回到顶部"><i class="fa fa-angle-up"></i></button><div class="modal-cover" id="success-indicator"><div class="modal-container indicator"><i class="fa fa-check"></i></div></div></body></html>
